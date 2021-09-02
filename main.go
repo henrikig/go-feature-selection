@@ -27,9 +27,8 @@ func worker(in <-chan *Work, out chan<- *Work) {
 	for w := range in {
 		newInst := regression.GetColumns(w.data, w.bitString, w.nonClass, w.class)
 		w.rmse = regression.GetFitness(newInst)
-		fmt.Println("Calculated rmse")
+
 		out <- w
-		fmt.Println("Sent to out channel")
 	}
 }
 
@@ -45,7 +44,7 @@ func run(nWorkers int) {
 		log.Fatal(err)
 	}
 
-	//data.AddClassAttribute(base.NewFloatAttribute("price"))
+	// data.AddClassAttribute(base.NewFloatAttribute("price"))
 	// data.RemoveClassAttribute(base.NewFloatAttribute("sqft_lot15"))
 
 	n := len(base.NonClassAttributes(data))
